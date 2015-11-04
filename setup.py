@@ -1,7 +1,7 @@
 import os
 from setuptools import setup
 
-with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
 
 # allow setup.py to be run from any path
@@ -20,10 +20,11 @@ setup(
     version='0.1',
     packages=get_packages('rest_generator'),
     include_package_data=True,
-    license='BSD License',  # example license
+    license='MTI License',  # example license
     description='A scafolding generator for django REST Framework.',
     long_description=README,
-    url='http://harlov.com/',
+    url='https://github.com/harlov/django-rest-generator',
+    download_url = 'https://github.com/harlov/django-rest-generator/tarball/0.1',
     author='Nikita Harlov',
     author_email='nikita@harlov.com',
     classifiers=[
