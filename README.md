@@ -4,9 +4,12 @@ Bootstrap generator, for fast prototype rest backend with best practise.
 
 
 Features:
-	-	create api urls, and inject into main urls
-	-	add apps with url-linking
 
-to start:
-	- add rest_generator to your django settings apps
-	- ./manage.py initrestgenerator
+*	create api urls, and inject into main urls
+*	add apps with url-linking
+
+## To quick start:
+- install django to your virtual environment
+- create project
+- add `rest_generator` to your django settings
+- ```./manage.py initrestgenerator```
