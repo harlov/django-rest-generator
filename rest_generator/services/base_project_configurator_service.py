@@ -1,9 +1,11 @@
 from rest_generator.helpers import *
 import rest_generator.settings as generator_settings
 from django.conf import settings
+from yapf.yapflib.yapf_api import FormatCode
 import os
 import ast
 import astor
+
 
 
 class BaseProjectConfiguratorService:
@@ -35,10 +37,10 @@ class BaseProjectConfiguratorService:
         print(" base path : %s" % (self.base_dir, ))
 
         self.BASE_APP = settings.BASE_DIR.split('/')[-1]
-        self.APP_DIR = "%s/%s" % (settings.BASE_DIR, self.BASE_APP)        
+        self.PROJECT_DIR = "%s/%s" % (settings.BASE_DIR, self.BASE_APP)        
 
     def init_api_routers(self):
-        api_urls_path = os.path.join(self.APP_DIR,"api_urls.py")
+        api_urls_path = os.path.join(self.PROJECT_DIR,"api_urls.py")
 
         if os.path.exists(api_urls_path):
             return print_warn("  api_urls.py is already exists - SKIP")
@@ -49,11 +51,12 @@ class BaseProjectConfiguratorService:
         print_ok("  %s/api_urls.py - CREATED" %(self.BASE_APP, ))
 
     def inject_into_main_urls(self):
-        urls_file = open(os.path.join(self.APP_DIR,"urls.py"), "r+")
+        urls_file = open(os.path.join(self.PROJECT_DIR,"urls.py"), "r+")
         urls_ast = ast.parse(urls_file.read())
         is_api_url_allredy_injected = False
         
         class CheckIsUrlsPatched(ast.NodeTransformer):
+            is_api_url_allredy_injected = False
             def visit_Call(self, node):
                 if len(node.args) > 0 and node.args[0].s == '^api/v1':
                     self.is_api_url_allredy_injected = True
@@ -90,7 +93,10 @@ class BaseProjectConfiguratorService:
         ast.fix_missing_locations(urls_ast)
         
         urls_file.seek(0)
-        urls_file.write(astor.to_source(urls_ast, add_line_information=False))
+
+        out_code = FormatCode(astor.to_source(urls_ast, add_line_information=False))[0]
+                
+        urls_file.write(out_code)
         urls_file.truncate()
         urls_file.close()
         print_ok("      %s/urls.py - MODIFIED" %(self.BASE_APP, ))

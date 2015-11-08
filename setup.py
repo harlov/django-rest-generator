@@ -17,14 +17,14 @@ def get_packages(package):
 
 setup(
     name='django-rest-generator',
-    version='0.1',
+    version='0.3',
     packages=get_packages('rest_generator'),
     include_package_data=True,
     license='MTI License',  # example license
     description='A scafolding generator for django REST Framework.',
     long_description=README,
     url='https://github.com/harlov/django-rest-generator',
-    download_url = 'https://github.com/harlov/django-rest-generator/tarball/0.1',
+    download_url = 'https://github.com/harlov/django-rest-generator/tarball/0.3',
     author='Nikita Harlov',
     author_email='nikita@harlov.com',
     classifiers=[
@@ -42,4 +42,5 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
+    entry_points={'console_scripts': ['django-rest-generator = rest_generator.__main__:main'],},
 )

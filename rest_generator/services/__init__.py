@@ -1,1 +1,2 @@
 from .base_project_configurator_service import BaseProjectConfiguratorService
+from .apps_configurator_service import AppsConfiguratorService
