@@ -1,6 +1,6 @@
 # Django rest generator -- DRG
 
-Bootstrap generator, for fast prototype rest backend with best practise.
+Bootstrap generator, for fast prototype rest backend.
 
 
 Features:
